@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Informaciòn
+            </div>
+            <div class="card-body">
+                <marquee behavior="" direction="">
+                    <h3 class="my-4">Estamos Procesando sus datos... Gracias!</h3>
+                </marquee>
+           
+            </div>
+        </div> <br><br>
+        
+    </div>
+    <div class="col-md-8 mt-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Dashboard Statistics
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="/add_productos">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Items <i class="fas fa-users"></i></h4>
+                                    <h3>{{ productos}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="/add_clientes">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Cliente <i class="fas fa-box"></i></h4>
+                                    <h3>{{ cliente }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="text-decoration-none text-dark" href="/add_proveedores">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Proveedor <i class="fas fa-shipping-fast"></i></h4>
+                                    <h3>{{ proveedor }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

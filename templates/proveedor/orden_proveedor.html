@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} 
+<link href="{% static 'css/registrar_ventas.css'  %}" rel="stylesheet">
+
+
+        
+
+{% block content %}
+
+    <div class="jumbotron">
+        <div class="header"{{header}}></div>
+            <form method="POST" action=''>{% csrf_token %}
+                {{form|crispy}}
+                <input type="submit" value='Search'/>
+            </form>
+            <br/>
+
+            <div class="display_table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NOMBRE</th>
+                            <th>DIRECCION</th>
+                            <th>TELEFONO</th>
+                            <th>EMAIL</th>
+                            <th>DELETE</th>
+                            
+                        </tr>
+                    </thead>
+                    {% for instance in queryset %}
+                    <tr>
+                        <td>{{instance.id_proveedor }}</td>
+                        <td><a href="#">{{instance.razon_social}}</a></td>
+                        <td>{{instance.direccion}}</td>
+                        <td>{{instance.telefono}}</td>
+                        <td>{{instance.email}}</td>
+                        <td><a href="#">Delete</a></td>
+                    </tr> 
+
+                    {% endfor %}  
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+    <div>
+        <table class="table">
+            <thead>
+                {% for instance in queryset %}
+                    <tr>
+                        <th>ID</th>
+                        <td>{{instance.id_proveedor}}</td>
+                        <th>NOMBRE</th>
+                        <td> {{instance.razon_social}</td>
+                        <th>DIRECCION</th>
+                        <td>{{instance.direccion}}</td>
+                        <th>TELEFONO</th>
+                        <td>{{instance.telefono}}</td>
+                        <th>EMAIL</th>
+                        <td>{{instance.email}}</td>
+
+                    </tr>
+                {% endfor %}  
+
+            </thead>
+
+        </table>
+    </div>
+
+    <br> <br>
+    <div class="container">
+        <div class="table-responsive text-nowrap">
+            <h2>Order Summary Stock / Proveedores</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Costo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total Item Precio</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for orden_provee in stock %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ orden_provee.producto }}</td>
+                        <td>{{ orden_provee.costo }}</td>
+                        <td>{{ orden_provee.cantidad }}<a href="#"><i class="fas fa-plus ml-2"></i></a></td>
+                        <td>${{ orden_provee.get_stock_item }}<a style='color: red;' href="#"><i class="fas fa-trash float-right"></i></a></td>
+
+                    </tr>
+
+                    <br><br>
+                    <tr>
+                        <td colspan="4"><b>Orden Total</b></td>
+                        <td><b>${{orden_provee.get_total_stock}}</b></td>
+
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="5">
+                            <a class='btn btn-warning float-right ml-2' href="#">Proceed to checkout</a>
+                            <a class='btn btn-primary float-right' href='#'>Continue Orden</a>
+
+
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <script>
+          var proveedor_form = $('.proveedor_form');
+          var stock_form= $('.stock_form');
+
+          var use_default_shipping = document.querySelector("input[name=use_default_proveedor]");
+          var use_default_billing = document.querySelector("input[name=use_default_stock]");
+
+          use_default_proveedor.addEventListener('change', function() {
+            if (this.checked) {
+              proveedor_form.hide();
+            } else {
+              proveedor_form.show();
+            }
+          })
+
+          use_default_stock.addEventListener('change', function() {
+            if (this.checked) {
+              stock_form.hide();
+            } else {
+              stock_formshow();
+            }
+          })
+
+    </script>
+
+{% endblock content %}
+  
+
+    

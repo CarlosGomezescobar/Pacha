@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+
+
+{% block content %}
+
+    <main role="main" class="container">
+                <div class="jumbotron">
+                    <h1>{{title}}</h1><br>
+                    <form method="POST" action=''>
+                        {% csrf_token %}
+                        <h1> Estas seguro que quieres Borrar el Elemento? </h1><br/>
+                        <input class="btn btn-danger" type="submit"  value="Si" />
+                        <a href ="/list_order"><div  class="btn btn-primary">Cancelar</div></a>
+                    </form>
+                </div>
+    </main>
+
+{% endblock content %}    

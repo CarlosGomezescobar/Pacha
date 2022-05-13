@@ -1,0 +1,79 @@
+{%load static %}
+{% load crispy_forms_tags %} 
+<!DOCTYPE html>
+
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+
+        <link href="{% static 'css/gestion.css' %}" rel="stylesheet">
+        <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+        <link href="{% static 'navbar-top-fixed.css' %}" rel="stylesheet">
+    </head>
+
+
+    <body>
+        {% include 'navbar.html' %}
+
+
+
+        <main role="main" class="container">
+                    {% if messages  %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li {% if message.tags %}  class="{{ message.tags  }}"{% endif %}> {{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <div class="jumbotron">
+                        <div class="header"{{header}}></div>
+                        <form method="POST" action=''>{% csrf_token %}
+                            {{form|crispy}}
+                            <input class="btn btn-danger" type="submit" value='Search'/>
+                        </form>
+                        <br/>
+                        <div class="display_table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>COUNT</th>
+                                        <th>CATEGORIA</th>
+                                        <th>NOMBRE</th>
+                                        <th>CANTIDAD EN TIENDA</th>
+                                        <th>COSTO</th>
+                                        <th>COSTO TOTAL</th>
+                                        <th>PROVEEDOR</th>
+                                        <th>DELETE</th>
+                                    
+                                    </tr>
+                                </thead>
+                                {% for instance in queryset %}
+                                    <tr>
+                                        
+
+                                        <td>{{instance.id_producto}}</td>
+                                        <td>{{instance.categoria}}</td>
+                                        <td><a href="{% url 'update_items' instance.id_producto %}">{{instance.titulo}}</a></td>
+                                        <td>
+                                            {% if instance.cantidad <= instance.reorder_level %}
+                                                <div style="background-color: orange;">
+                                                    <a href="#">{{instance.cantidad}}</a>
+                                                </div>
+                                            {% else %}
+                                                <a href="#">{{instance.cantidad}}</a>
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="#">{{instance.costo}}</a></td>
+                                        <td><a href="#">{{instance.get_total_stock_item}}</a></td>
+                                        <td>{{instance.id_proveedor}}</td>
+                                        <td><a href="#">Delete</a></td>
+                                    </tr> 
+
+                                {% endfor %}  
+                            </table>
+                                

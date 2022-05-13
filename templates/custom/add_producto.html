@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+
+
+{% block content %}
+
+
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h1>{{title}}</h1><br>
+            <form method="POST" action=''>{% csrf_token %}
+                {{form|crispy}}
+                <input href="/list_productos" class="btn btn-danger" type="submit" value="Guardar"/>
+                <a href ="/list_productos"><div  class="btn btn-primary">Productos</div></a>
+            </form>
+        </div>
+    </main>
+
+{% endblock content %} 
